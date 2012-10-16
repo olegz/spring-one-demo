@@ -1,0 +1,9 @@
+Aggregation of the request (POST/PUT)
+Aggregation should be done by default, however there should be an attribute (e.g., message-size) 
+setting a guideline for how big the message can be.
+
+BEFORE RELEASE
+- check for UnsupportedOperationException. Make sure they are thrown knowingly and not just 'forgot to implement"
+
+TESTS needed
+- Transfer Image as Base64 to the page

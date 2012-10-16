@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-2.2.xsd
+		http://www.springframework.org/schema/integration/amqp http://www.springframework.org/schema/integration/amqp/spring-integration-amqp-2.2.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<import resource="classpath:amqp-common.xml"/>
+	
+	<!-- Outgoing Request -->
+
+	<int-http:inbound-channel-adapter channel="transformingChannel"
+							  name="/orders" 
+							  supported-methods="GET"/>
+							  
+	<int:channel id="transformingChannel"/>
+		
+	<int:transformer input-channel="transformingChannel" output-channel="orderChannel" 
+		expression="payload.order[0]"/>
+		
+	<int:channel id="orderChannel"/>	
+    
+	<int-amqp:outbound-channel-adapter channel="orderChannel" 
+							   routing-key="order"
+							   amqp-template="amqpTemplate"/>
+							   
+   <!-- Incoming Delivery -->
+							   
+	<int-amqp:inbound-channel-adapter channel="deliveriesReceiveChannel"
+							  connection-factory="rabbitConnectionFactory" 
+							  queue-names="delivery"/>
+	
+	<int:channel id="deliveriesReceiveChannel">
+		<int:queue/>
+	</int:channel>
+	
+	
+	<!-- Client poller -->
+	<int-http:inbound-gateway request-channel="deliveryChannel" name="/deliveries" supported-methods="GET"/>
+	
+	<int:service-activator input-channel="deliveryChannel"  expression="@deliveryReleaser.release()"/>
+	
+	
+	<bean id="deliveryReleaser" class="org.springone.demo.orders.DeliveryReleaser">
+		<constructor-arg ref="deliveriesReceiveChannel"/>
+	</bean>
+	
+</beans>

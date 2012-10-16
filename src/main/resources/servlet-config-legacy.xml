@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-2.2.xsd
+		http://www.springframework.org/schema/integration/amqp http://www.springframework.org/schema/integration/amqp/spring-integration-amqp-2.2.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<!-- Outgoing Request -->
+
+	<int-http:inbound-gateway request-channel="transformingChannel"
+							  name="/orders" 
+							  supported-methods="GET"/>
+							  
+	<int:channel id="transformingChannel"/>
+		
+	<int:transformer input-channel="transformingChannel" output-channel="orderReceiveChannel" 
+		expression="payload.order[0]"/>
+		
+	<int:json-to-object-transformer input-channel="orderReceiveChannel" 
+					output-channel="orderServiceChannel" type="org.springone.demo.domain.Order"/>	
+	
+    <int:service-activator input-channel="orderServiceChannel"  output-channel="deliveryTransformingChannel">
+    	<bean class="org.springone.demo.orders.OrderService"/>
+    </int:service-activator>
+    
+    <int:object-to-json-transformer input-channel="deliveryTransformingChannel"/>
+	
+</beans>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/amqp http://www.springframework.org/schema/integration/amqp/spring-integration-amqp-2.2.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<import resource="classpath:amqp-common.xml"/>
+
+	
+	<!-- Incoming Request -->
+    <int-amqp:inbound-channel-adapter channel="orderReceiveChannel"
+							  connection-factory="rabbitConnectionFactory" 
+							  queue-names="order"/>
+							  						  
+	<int:publish-subscribe-channel id="orderReceiveChannel" task-executor="executor"/>	
+	
+	<int:json-to-object-transformer input-channel="orderReceiveChannel" 
+					output-channel="orderServiceChannel" type="org.springone.demo.domain.Order"/>	
+	
+    <int:service-activator input-channel="orderServiceChannel"  output-channel="deliveryTransformingChannel">
+    	<bean class="org.springone.demo.orders.OrderService"/>
+    </int:service-activator>
+    
+    <int:object-to-json-transformer input-channel="deliveryTransformingChannel" output-channel="deliveryChannel"/>
+    
+    <int:channel id="deliveryChannel"/>
+    	
+    <!-- Outgoing Delivery -->
+    <int-amqp:outbound-channel-adapter channel="deliveryChannel" 
+							   routing-key="delivery"
+							   amqp-template="amqpTemplate"/>
+    				   
+</beans>

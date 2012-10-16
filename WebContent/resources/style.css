@@ -1,0 +1,336 @@
+/*
+	Cafecito by FWT
+	www.freewebsitetemplat.es
+	Images by Image Base http://imagebase.davidniblack.com/
+	Released under the Creative Commons Attribution 3.0 License.
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: underline;
+	color: #2BD4C0;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+body {
+	font-size: 11pt;
+	line-height: 1.75em;
+	background: #171511 url(images/bg.jpg) no-repeat top center fixed;
+	color: #E2DCDD;
+}
+
+body,input {
+	font-family: Jura, sans-serif;
+}
+
+br.clear {
+	clear: both;
+}
+
+form {
+	margin: 0;
+	padding: 0;
+}
+
+h2 {
+	font-size: 2.25em;
+}
+
+h2,h3,h4 {
+	margin-bottom: 1em;
+	font-family: "Ubuntu Condensed", sans-serif;
+	color: #FFF;
+}
+
+h3 {
+	font-size: 1.75em;
+}
+
+h4 {
+	font-size: 1.5em;
+}
+
+img.left {
+	float: left;
+	margin: 5px 20px 20px 0;
+}
+
+img.top {
+	margin: 5px 0 20px 0;
+}
+
+label.login {
+	display: block;
+	margin: 0 0 6px 0;
+}
+
+p {
+	margin-bottom: 1.5em;
+}
+
+ul {
+	margin-bottom: 1.5em;
+}
+
+ul h4 {
+	margin-bottom: 0.35em;
+}
+
+.form {
+	margin: 0 0 30px 0;
+}
+
+.inputBox, .inputTextArea {
+	padding: 6px;
+	width: 97%;
+	background: #685656;
+	border-top: 1px solid #4d4040;
+	border-left: 1px solid #4d4040;
+	border-bottom: 1px solid #796666;
+	border-right: 1px solid #796666;
+	color: #FFF;
+	font-family: Jura, sans-serif;
+	border-radius: 10px;
+}
+
+.inputButton {
+	padding: 6px;
+	float: right;
+	background: #171511;
+	color: #FFF;
+	border: none;
+	border-radius: 10px;
+}
+
+.comments a, .readmore a {
+	padding: 6px;
+	background: #171511;
+	color: #FFF;
+	border: none;
+	text-decoration: none;
+	border-radius: 10px;
+}
+
+img {
+	border-radius: 10px;
+}
+
+#header {
+	position: relative;
+	padding: 0;
+	height: 135px;
+	width: 980px;
+	margin: 90px auto 0 auto;	
+}
+
+#logo {
+	position: absolute;
+	top: 10px;
+	right: 30px;
+	height: 15px;
+	line-height: 25px;
+}
+
+#logo a {
+	text-decoration: none;
+	color: #99CC33;
+}
+
+#logo h1 {
+	font-size: 3.00em;
+	font-family: "Ubuntu Condensed", sans-serif;
+	text-shadow: 2px 2px 3px #000;
+	text-transform: lowercase;
+}
+
+#nav {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 60px;
+	line-height: 60px;
+	padding: 0 30px 0 30px;
+	width: 920px;
+	margin: 30px 0 0 0;
+	font-family: "Ubuntu Condensed", sans-serif;
+	background: #528CAD;
+	border-radius: 20px 20px 0 0;
+}
+
+#nav a {
+	text-decoration: none;
+	color: #FFF;
+}
+
+#nav ul {
+	list-style: none;
+}
+
+#nav ul li {
+	display: inline;
+	padding: 0 15px 0 15px;
+}
+
+#nav ul li.first {
+	padding-left: 0;
+}
+
+#outer {
+	position: relative;
+	width: 980px;
+	margin: 0 auto;
+	background: #685556;
+	border-radius: 0 0 20px 20px;
+}
+
+#box1 {
+	margin: 0 0 25px 0;
+	overflow: hidden;
+}
+
+#box2 {
+	margin: 0 0 25px 0;
+	overflow: hidden;
+}
+
+#box3 {
+	overflow: hidden;
+}
+
+#content {
+	width: 595px;
+	float: left;
+	padding: 0;
+}
+
+#copyright {
+	margin: 0 0 50px 0;
+	padding: 50px 0 80px 0;
+	text-align: center;
+}
+
+#copyright a {
+	color: #E2DCDD;
+}
+
+#footer {
+	position: relative;
+	padding: 30px;
+	width: 920px;
+	background: #528CAD;
+	color: #C8DAE5;
+	border-radius: 0 0 20px 20px;
+}
+
+#footer a {
+	color: #ECF2F6;
+}
+
+#footer h2, #footer h3, #footer h4 {
+	color: #FFF;
+}
+
+#footer ul {
+	list-style: none;
+}
+
+#footer ul li {
+	padding: 10px 0 10px 0;
+	border-top: solid 1px #76A4BE;
+}
+
+#footer ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+#footerContent {
+	width: 595px;
+	float: left;
+}
+
+#footerSidebar {
+	width: 300px;
+	margin: 0 0 0 620px;
+}
+
+
+
+#main {
+	position: relative;
+	padding: 30px;
+	width: 920px;
+	margin: 0 0 0 0;
+	color: #DAD2D3;
+}
+
+#main .sectionList {
+	list-style: none;
+	padding-left: 0;
+}
+
+#main .sectionList li {
+	clear: both;
+	padding: 20px 0 20px 0;
+}
+
+#main a {
+	color: #EEECEC;
+}
+
+#main h2, #main h3, #main h4 {
+	color: #EDEBEB;
+}
+
+#main strong {
+	color: #E6E0E0;
+}
+
+#main ul {
+	list-style: none;
+}
+
+#main ul li {
+	padding: 10px 0 10px 0;
+	border-top: solid 1px #A49091;
+}
+
+#main ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+
+
+
+
+#search input.button {
+	margin-left: 1em;
+	border: 0;
+	color: #FFF;
+	background: #2BD4C0;
+	padding: 5px;
+	font-family: "Ubuntu Condensed", sans-serif;
+}
+
+#search input.text {
+	border: solid 1px #A49092;
+	padding: 5px;
+}
+
+#sidebar {
+	width: 300px;
+	margin: 0 0 0 620px;
+	padding: 0;
+}
+
+.blogpost h2 {
+	margin: 0 0 10px 0;
+}
